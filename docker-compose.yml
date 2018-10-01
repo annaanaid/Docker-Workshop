@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  nginx:
+    image: workshop/nginx:latest
+    build:
+      context: nginx
+      #dockerfile: 
+      args:
+        - VAR=1234
+    environment:
+      - XYZ=123
+    ports:
+      - 8080:80
+    #volumes:
+    #  - ${PWD}/nginx/www:/usr/share/nginx/html
+    restart: on-failure
