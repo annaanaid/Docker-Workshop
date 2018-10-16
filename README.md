@@ -86,6 +86,8 @@ CMD # default command to start the container
 COPY # copy files into image (ADD extracting/downloading)
 EXPOSE # port exposure
 ENV # environment variable
+ARG # build argument
+USER # user used
 ```
 ## Remote debugging
 [Click](https://github.com/docker/labs/blob/master/developer-tools/java-debugging/IntelliJ-README.md)
