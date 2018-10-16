@@ -90,7 +90,9 @@ ARG # build argument
 USER # user used
 ```
 ## Remote debugging
-[Click](https://github.com/docker/labs/blob/master/developer-tools/java-debugging/IntelliJ-README.md)
+- [Cligithub.com/dockerck](https://github.com/docker/labs/blob/master/developer-tools/java-debugging/IntelliJ-README.md)
+- [dzone](https://dzone.com/articles/deploy-to-wildfly-and-docker-from-intellij-using-m)
+- [jetbrains](https://www.jetbrains.com/help/idea/deploying-a-web-app-into-wildfly-container.html)
 
 
 # misc
