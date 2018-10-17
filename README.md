@@ -21,19 +21,31 @@
 
 ![Docker Filesystem](https://www.mundodocker.com.br/wp-content/uploads/2015/06/docker-filesystems-busyboxrw.png)
 
+[Docker use cases](https://www.docker.com/why-docker)
+  
 ## Image vs. Container
 
-Image = CD, .iso = immutable
+Image = CD, .iso, Java.class = immutable
 
-Comntainer instantiated image (program running)
+Container = Java Object, instantiiertes Image (program running)
 
 ## docker-compose
-"Wie sollen verschiedene Container zusammenarbeiten (Netzwerk, Volumes, Commandos, Images, ...". Man möchte nicht etliche docker run mit vielen parametern scripten..
+"Wie sollen verschiedene Container (Services genannt) zusammenarbeiten:
+- Netzwerk
+- Volumes
+- Commandos
+- Images, ..."
+- Healthchecks
+- Ressource limits
+- ...
+
+Man möchte nicht etliche docker run mit vielen parametern scripten..
 
 `docker-compose [up, down, build, pull, push, ...]`
 
-# Test with different versions (maven)
-`docker run -v $(pwd):/workdir -w /workdir maven:3.5.4-jdk-8 mvn --version` 
+# *Docker use cases*
+## Testing mit verschiedenen Versionen (maven/DBs/...)
+`docker run -v ${PWD}:/workdir -w /workdir maven:3.5.4-jdk-8 mvn --version` 
 
 ```bash 
 Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-17T18:33:14Z)
@@ -59,13 +71,13 @@ Default locale: en_US, platform encoding: ANSI_X3.4-1968
 OS name: "linux", version: "4.9.125-linuxkit", arch: "amd64", family: "unix"
 ```
 
-# interaktives Arbeiten im Container
+## interaktives Arbeiten im Container
 
 `docker run -ti -v ${PWD}:/workdir -w /workdir alpine:latest /bin/sh #bash nicht installiert`
 
 
 
-# Laufenden Container analysieren
+## Laufenden Container analysieren
 ```bash
 docker ps 
 docker inspect <containerID>
@@ -73,7 +85,7 @@ docker logs -f <containerID>
 docker exec -ti <containerID> /bin/bash
 ```
 
-# Container killen
+## Container killen
 `docker rm <containerID>`
 
 # Dockerfile
@@ -89,7 +101,7 @@ ENV # environment variable
 ARG # build argument
 USER # user used
 ```
-## Remote debugging
+# Remote debugging
 - [Cligithub.com/dockerck](https://github.com/docker/labs/blob/master/developer-tools/java-debugging/IntelliJ-README.md)
 - [dzone](https://dzone.com/articles/deploy-to-wildfly-and-docker-from-intellij-using-m)
 - [jetbrains](https://www.jetbrains.com/help/idea/deploying-a-web-app-into-wildfly-container.html)
