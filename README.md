@@ -123,8 +123,7 @@ docker exec -ti <containerID> /bin/bash
   - docker-compose up (aktualisiert die Config)
   - nginx/www/index.html editieren, die Änderungen sind sofort ohne reload sichtbar!
   - compose file editieren, volume mounten und index.html live ändern
-- cd ../02networking
-- cd ../03volumes
+- cd ../02volumes
   - docker run alpine:latest kein persistenter storage = :(
   - docker volume create my-vol
   - docker volume ls
