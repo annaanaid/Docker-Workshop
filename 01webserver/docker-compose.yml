@@ -5,7 +5,6 @@ services:
     image: workshop/nginx:latest
     build:
       context: nginx
-      #dockerfile: 
       args:
         - VAR=1234
     environment:

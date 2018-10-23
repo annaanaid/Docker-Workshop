@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  nginx:
+    image: alpine:latest
+
+    volumes:
+      - persistant_data:/storage
+    restart: on-failure
+    command:
+      tail -f -n 0 /etc/hosts
+
+volumes: 
+  persistant_data: {}
+
+### docker run variant
+# docker volume create my-vol
+# docker volume ls
+
+# docker run -d \
+#  --name devtest \
+#  -v myvol:/storage \
+#  alpine:latest
+
+# docker container stop devtest
+# docker container rm devtest
+# docker volume rm myvol

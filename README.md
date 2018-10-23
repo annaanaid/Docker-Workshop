@@ -2,7 +2,7 @@
 
 **Install docker [Get docker](https://www.docker.com/get-started)**
 
-# Warum ist docker als Entwickler spannend?
+# Warum ist docker spannend?
 *"Docker is designed to make it easier to create, deploy, and run applications by using containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and ship it all out as one package. – Opensource.com"*
 
 - Gleiche Umgebung wie auf Prod (Wenn es läuft, läuft es auch auf Prod) -> Stand alone package
@@ -10,6 +10,7 @@
 - Weniger tools auf dem System (Tomcat, Jboss, MySql, ...) - only docker needed
 - Mehrere Tool-Versionen testbar (Python hell) -> Isoliert host und Container
 - Keine 42 Seiten langen Installationsanleitungen
+- Management sidecars
 
 # Andere use cases
 - Complette CI/CD-Pipeline auf Knopfdruck, siehe: [CI-Github](https://github.com/marcelbirkner/docker-ci-tool-stack) 
@@ -21,6 +22,8 @@
 
 ![Docker Filesystem](https://www.mundodocker.com.br/wp-content/uploads/2015/06/docker-filesystems-busyboxrw.png)
 
+![Lagacy to SaaS](https://mycloudblog7.files.wordpress.com/2013/06/screen-shot-2015-06-09-at-2-13-05-pm1.png)
+
 [Docker use cases](https://www.docker.com/why-docker)
   
 ## Image vs. Container
@@ -29,16 +32,31 @@ Image = CD, .iso, Java.class = immutable
 
 Container = Java Object, instantiiertes Image (program running)
 
+## Dockerfile
+siehe nginx/Dockerfile
+
+```bash
+FROM # base Image
+RUN # exec commands
+CMD # default command to start the container
+COPY # copy files into image (ADD extracting/downloading)
+EXPOSE # port exposure
+ENV # environment variable
+ARG # build argument
+USER # user used
+```
+
 ## docker-compose
-"Wie sollen verschiedene Container (Services genannt) zusammenarbeiten:
+compose = "Wie sollen verschiedene Container (Services genannt) zusammenarbeiten?":
+```
 - Netzwerk
 - Volumes
 - Commandos
-- Images, ..."
+- Images
 - Healthchecks
 - Ressource limits
 - ...
-
+```
 Man möchte nicht etliche docker run mit vielen parametern scripten..
 
 `docker-compose [up, down, build, pull, push, ...]`
@@ -88,41 +106,44 @@ docker exec -ti <containerID> /bin/bash
 ## Container killen
 `docker rm <containerID>`
 
-# Dockerfile
-siehe nginx/Dockerfile
-
-```bash
-FROM # base Image
-RUN # exec commands
-CMD # default command to start the container
-COPY # copy files into image (ADD extracting/downloading)
-EXPOSE # port exposure
-ENV # environment variable
-ARG # build argument
-USER # user used
-```
 # Remote debugging
 - [Cligithub.com/dockerck](https://github.com/docker/labs/blob/master/developer-tools/java-debugging/IntelliJ-README.md)
 - [dzone](https://dzone.com/articles/deploy-to-wildfly-and-docker-from-intellij-using-m)
 - [jetbrains](https://www.jetbrains.com/help/idea/deploying-a-web-app-into-wildfly-container.html)
+- [JRebel](https://github.com/antonarhipov/petclinic-docker-jrebel)
 
-
-# misc
-`docker system prune #clean up`
-# Links
-Developer Tools Tutorials
-hub.docker.com
-https://github.com/docker/labs/tree/master/developer-tools 
-
-
-# HandOn
+# HandsOn
 
 `git clone git@gitlab.com:cstrobel/docker-workshop.git`
-
-- nginx starten
-- compose file editieren, volume mounten und index.html live ändern
+- cd 01webserber
+  - docker-compose.yml und nginx/Dockerfile betrachten, Stichwort build-variablen
+  - nginx starten docker-compose up
+  - http://localhost:8080/ betrachten
+  - docker-compose.yml file editieren und volume "einkommentieren"
+  - docker-compose up (aktualisiert die Config)
+  - nginx/www/index.html editieren, die Änderungen sind sofort ohne reload sichtbar!
+  - compose file editieren, volume mounten und index.html live ändern
+- cd ../02networking
+- cd ../03volumes
+  - docker run alpine:latest kein persistenter storage = :(
+  - docker volume create my-vol
+  - docker volume ls
+  - docker run -d --name devtest -v myvol:/storage alpine:latest
+    - ls -Al storage
+    - touch storage/test
+    - exit
+  - docker run -d --name devtest -v myvol:/storage alpine:latest
+    - ls -Al storage
 - Welche Images habe ich auf meinem Rechner?
 - Welche Container laufen aktuell?
 - Wie kann Docker meinen Entwicklungsworkflow mittels Docker optimieren?
 
-`http://localhost:8080`
+
+
+# misc
+`docker system prune -f #clean up`
+# Links
+
+- [Best Practices](https://github.com/robrich/docker-hands-on-workshop/tree/master/12-Docker-best-practices)
+- [Weiteres HandsOn](https://github.com/robrich/docker-hands-on-workshop)
+- [Developer Tools Tutorials hub.docker.com](https://github.com/docker/labs/tree/master/developer-tools)
