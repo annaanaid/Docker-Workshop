@@ -138,6 +138,7 @@ docker exec -ti <containerID> /bin/bash
 - Wie kann Docker meinen Entwicklungsworkflow mittels Docker optimieren?
 
 
+Docker swarm tutorial: https://training.play-with-docker.com/orchestration-hol/
 
 # misc
 `docker system prune -f #clean up`
